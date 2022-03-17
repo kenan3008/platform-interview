@@ -19,7 +19,7 @@ resource "aws_key_pair" "aws_chat" {
 data "template_file" "aws_chat" {
   template = file("files/cloudinit.yml")
   vars = {
-    dockerImage   = local.docker_image
+    dockerImage = local.docker_image
   }
 }
 
@@ -118,7 +118,7 @@ resource "aws_iam_instance_profile" "aws_chat" {
 #
 resource "aws_launch_template" "aws_chat" {
   name_prefix   = "aws-chat-"
-  image_id      = "ami-xxxxx"
+  image_id      = data.aws_ami.amazon_linux_2_ami.image_id
   instance_type = "t2.small"
   key_name      = aws_key_pair.aws_chat.key_name
 
