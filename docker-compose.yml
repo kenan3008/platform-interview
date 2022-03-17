@@ -13,7 +13,7 @@ services:
     ports:
       - 6379:6379
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 1s
       timeout: 3s
       retries: 30
@@ -33,7 +33,13 @@ services:
       - ./localstack:/docker-entrypoint-initaws.d
       - localstack:/tmp/localstack
     healthcheck:
-      test: ['CMD', 'bash', '-c', 'awslocal dynamodb describe-table --table-name test_Users --region eu-central-1 && awslocal dynamodb describe-table --table-name test_Messages --region eu-central-1']
+      test:
+        [
+          'CMD',
+          'bash',
+          '-c',
+          'awslocal dynamodb describe-table --table-name test_Users --region eu-central-1 && awslocal dynamodb describe-table --table-name test_Messages --region eu-central-1'
+        ]
       interval: 1s
       timeout: 3s
       retries: 30
@@ -41,10 +47,8 @@ services:
   # The actual client application
   client:
     depends_on:
-      localstack:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - localstack
+      - redis
     networks:
       - chat
     build: ./src/client
