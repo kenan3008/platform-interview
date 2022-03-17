@@ -6,6 +6,8 @@ module.exports = {
   PORT: process.env.PORT || 3000,
   REGION: process.env.REGION || 'eu-central-1',
 
+  REDIS_ENDPOINT: process.env.REDIS_ENDPOINT,
+  REDIS_PORT: process.env.REDIS_PORT || 6379,
   DYNAMODB_ENDPOINT: new AWS.Endpoint(process.env.DYNAMODB_ENDPOINT || 'https://dynamodb.eu-central-1.amazonaws.com'),
 
   // Controls how often clients ping back and forth
